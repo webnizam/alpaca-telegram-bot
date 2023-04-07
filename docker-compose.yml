@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  dalai:
+    build: dalai/.
+    container_name: dalai
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    volumes:
+      - ./models/alpaca:/root/dalai/alpaca
+      - ./models/llama:/root/dalai/llama
+    healthcheck:
+      test: curl -f http://localhost:3000
+
+  bot:
+    build: bot/.
+    container_name: tbot
+    env_file:
+      - .env
+    entrypoint: [ 'python3', 'main.py' ]
+    depends_on:
+      dalai:
+        condition: service_healthy

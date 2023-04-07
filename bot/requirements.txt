@@ -1,0 +1,6 @@
+nest_asyncio
+asyncio
+pyTelegramBotAPI
+python-socketio
+python-decouple
+aiohttp
